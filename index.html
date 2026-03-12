@@ -22,6 +22,23 @@
     --bg-alpha:     rgba(243, 247, 252, 0.93);
   }
 
+  /* Dark mode variables */
+  [data-theme="dark"] {
+    --bg:           #0f172a;
+    --surface:      #1e293b;
+    --border:       #334155;
+    --ink:          #f1f5f9;
+    --muted:        #94a3b8;
+    --accent:       #818cf8;
+    --white:        #ffffff;
+
+    --accent-tint:  rgba(129, 140, 248, 0.15);
+    --ink-faint:    rgba(241, 245, 249, 0.1);
+    --ink-stroke:   rgba(241, 245, 249, 0.25);
+    --shadow:       rgba(0, 0, 0, 0.3);
+    --bg-alpha:     rgba(15, 23, 42, 0.95);
+  }
+
   * { box-sizing: border-box; margin: 0; padding: 0; }
   html { scroll-behavior: smooth; }
 
@@ -33,9 +50,9 @@
     line-height: 1.6;
     overflow-x: hidden;
     cursor: none;
+    transition: background-color 0.3s ease, color 0.2s ease;
   }
 
-  /* dot grid texture */
   body::before {
     content: '';
     position: fixed; inset: 0;
@@ -45,19 +62,18 @@
     z-index: 0;
   }
 
-  /* custom cursor */
-  #cur  { width:9px; height:9px; background:var(--accent); border-radius:50%; position:fixed; pointer-events:none; z-index:9999; transform:translate(-50%,-50%); transition:transform .12s; mix-blend-mode:multiply; }
-  #ring { width:34px; height:34px; border:1.5px solid var(--accent); border-radius:50%; position:fixed; pointer-events:none; z-index:9998; transform:translate(-50%,-50%); opacity:.45; transition:opacity .2s, transform .12s; mix-blend-mode:multiply; }
+  #cur  { width:9px; height:9px; background:var(--accent); border-radius:50%; position:fixed; pointer-events:none; z-index:9999; transform:translate(-50%,-50%); transition:transform .12s, background-color 0.2s; }
+  #ring { width:34px; height:34px; border:1.5px solid var(--accent); border-radius:50%; position:fixed; pointer-events:none; z-index:9998; transform:translate(-50%,-50%); opacity:.45; transition:opacity .2s, transform .12s, border-color 0.2s; }
 
   .container { max-width:1100px; margin:0 auto; padding:0 36px; position:relative; z-index:1; }
 
-  /* ── NAV ── */
   nav {
     position:fixed; top:0; left:0; right:0; z-index:100;
     padding:18px 0;
     background: var(--bg-alpha);
     backdrop-filter:blur(10px);
     border-bottom:1px solid var(--border);
+    transition: background-color 0.3s ease, border-color 0.2s ease;
   }
   nav .inner { max-width:1100px; margin:0 auto; padding:0 36px; display:flex; justify-content:space-between; align-items:center; }
   .nav-logo { font-family:'Syne',sans-serif; font-weight:800; font-size:20px; letter-spacing:0; color:var(--ink); text-decoration:none; }
@@ -70,7 +86,31 @@
   }
   nav a.nl:hover { background:var(--accent); color:var(--white); }
 
-  /* ── HERO ── */
+  .theme-toggle {
+    background: transparent;
+    border: 1.5px solid var(--border);
+    color: var(--muted);
+    font-size: 18px;
+    padding: 6px 12px;
+    border-radius: 30px;
+    cursor: none;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    transition: all 0.2s ease;
+    margin-left: 8px;
+  }
+  .theme-toggle:hover {
+    border-color: var(--accent);
+    color: var(--accent);
+    transform: translateY(-2px);
+  }
+  .theme-toggle span {
+    font-size: 13px;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+  }
+
   .hero {
     min-height:100vh; display:flex; align-items:center;
     padding:130px 0 90px; position:relative;
@@ -143,25 +183,22 @@
   .scroll-line { width:1px; height:48px; background:linear-gradient(to bottom, var(--accent), transparent); animation:sp 2s infinite; }
   @keyframes sp { 0%,100%{transform:scaleY(1);opacity:1} 50%{transform:scaleY(.55);opacity:.4} }
 
-  /* ── SECTIONS ── */
   section { padding:96px 0; }
 
   .sec-hdr { display:flex; align-items:baseline; gap:18px; margin-bottom:54px; }
   .sec-title { font-family:'Syne',sans-serif; font-weight:800; font-size:44px; letter-spacing:0; line-height:1; }
   .sec-line { flex:1; height:1px; background:var(--border); margin-left:18px; }
 
-  /* ── EDUCATION ── */
   .edu-grid { display:grid; grid-template-columns:1fr 1fr; gap:3px; }
-  .edu-card { background:var(--surface); border:1.5px solid var(--border); padding:36px 38px; border-radius:3px; }
+  .edu-card { background:var(--surface); border:1.5px solid var(--border); padding:36px 38px; border-radius:3px; transition: background-color 0.3s ease, border-color 0.2s ease; }
   .edu-school { font-family:'Syne',sans-serif; font-weight:800; font-size:18px; letter-spacing:0; margin-bottom:6px; }
   .edu-degree { color:var(--ink); font-size:15px; margin-bottom:6px; }
   .edu-period { font-size:14px; color:var(--muted); margin-bottom:16px; }
   .edu-courses { font-size:14px; color:var(--muted); line-height:1.8; }
   .edu-courses strong { color:var(--ink); font-weight:600; }
 
-  /* ── EXPERIENCE ── */
   .exp-list { display:flex; flex-direction:column; gap:3px; }
-  .exp-card { background:var(--surface); border:1.5px solid var(--border); border-radius:3px; overflow:hidden; }
+  .exp-card { background:var(--surface); border:1.5px solid var(--border); border-radius:3px; overflow:hidden; transition: background-color 0.3s ease, border-color 0.2s ease; }
   .exp-inner { padding:36px 42px; }
   .exp-top { display:flex; justify-content:space-between; align-items:baseline; gap:20px; margin-bottom:8px; flex-wrap:wrap; }
   .exp-org { font-family:'Syne',sans-serif; font-weight:800; font-size:20px; letter-spacing:0; }
@@ -172,7 +209,6 @@
   .bullet-list li { color:var(--ink); font-size:15px; line-height:1.7; padding-left:20px; position:relative; }
   .bullet-list li::before { content:'–'; position:absolute; left:0; color:var(--muted); }
 
-  /* ── PROJECT CARDS ── */
   .projects-grid { display:flex; flex-direction:column; gap:3px; }
 
   .pc {
@@ -180,6 +216,7 @@
     border:1.5px solid var(--border);
     border-radius:3px; overflow:hidden;
     position:relative;
+    transition: background-color 0.3s ease, border-color 0.2s ease;
   }
   .pc::before {
     content:''; position:absolute; left:0; top:0; bottom:0; width:3px;
@@ -222,26 +259,23 @@
   .play-ic { width:18px; height:18px; border:1.5px solid currentColor; border-radius:50%; display:flex; align-items:center; justify-content:center; flex-shrink:0; }
   .play-ic::after { content:''; width:0; height:0; border-top:5px solid transparent; border-bottom:5px solid transparent; border-left:7px solid currentColor; margin-left:2px; }
 
-  /* ── SKILLS ── */
   .skills-grid { display:grid; grid-template-columns:repeat(3,1fr); gap:3px; }
-  .sk { background:var(--surface); border:1.5px solid var(--border); padding:36px 32px; border-radius:3px; }
+  .sk { background:var(--surface); border:1.5px solid var(--border); padding:36px 32px; border-radius:3px; transition: background-color 0.3s ease, border-color 0.2s ease; }
   .sk-icon { font-size:28px; margin-bottom:18px; display:block; }
   .sk-name { font-family:'Syne',sans-serif; font-size:18px; font-weight:700; letter-spacing:0; margin-bottom:16px; }
   .sk-list { color:var(--muted); font-size:15px; line-height:2.2; }
 
-  /* ── CONTACT ── */
-  .contact-block { background:var(--surface); border:1.5px solid var(--border); border-radius:3px; padding:80px 64px; text-align:center; }
+  .contact-block { background:var(--surface); border:1.5px solid var(--border); border-radius:3px; padding:80px 64px; text-align:center; transition: background-color 0.3s ease, border-color 0.2s ease; }
   .ct-label { font-size:14px; color:var(--accent); letter-spacing:0; text-transform:uppercase; margin-bottom:20px; }
   .ct-heading { font-family:'Syne',sans-serif; font-size:clamp(36px,4.5vw,60px); font-weight:800; letter-spacing:0; line-height:1.1; margin-bottom:16px; }
   .ct-heading em { font-style:normal; color:var(--accent); }
   .ct-sub { color:var(--muted); font-size:16px; margin-bottom:48px; }
   .ct-links { display:flex; gap:16px; justify-content:center; flex-wrap:wrap; }
 
-  footer { padding:36px 0; border-top:1px solid var(--border); }
+  footer { padding:36px 0; border-top:1px solid var(--border); transition: background-color 0.3s ease, border-color 0.2s ease; }
   footer .inner { max-width:1100px; margin:0 auto; padding:0 36px; display:flex; justify-content:space-between; align-items:center; }
   footer p { color:var(--muted); font-size:14px; }
 
-  /* ── ANIMATIONS ── */
   @keyframes fadeUp { from{opacity:0;transform:translateY(22px)} to{opacity:1;transform:translateY(0)} }
   .reveal { opacity:0; transform:translateY(22px); transition:opacity .55s ease,transform .55s ease; }
   .reveal.visible { opacity:1; transform:none; }
@@ -253,6 +287,8 @@
     .skills-grid { grid-template-columns:1fr 1fr; }
     .edu-grid { grid-template-columns:1fr; }
     nav ul { display:none; }
+    .theme-toggle span { display: none; }
+    .theme-toggle { padding: 6px 10px; }
   }
   @media(max-width:600px){
     .skills-grid { grid-template-columns:1fr; }
@@ -264,7 +300,6 @@
 <div id="cur"></div>
 <div id="ring"></div>
 
-<!-- ── NAV ── -->
 <nav>
   <div class="inner">
     <a href="#" class="nav-logo">dev<span>.</span></a>
@@ -275,6 +310,9 @@
       <li><a href="#skills" class="nl">Skills</a></li>
       <li><a href="#contact" class="nl">Contact</a></li>
     </ul>
+    <button class="theme-toggle" id="themeToggle">
+      <span class="theme-text">Light</span>
+    </button>
   </div>
 </nav>
 
@@ -303,7 +341,6 @@
   <div class="hero-scroll"><div class="scroll-line"></div>scroll</div>
 </section>
 
-<!-- ── EDUCATION ── -->
 <section id="education">
   <div class="container">
     <div class="sec-hdr reveal">
@@ -333,7 +370,6 @@
   </div>
 </section>
 
-<!-- ── EXPERIENCE ── -->
 <section id="experience">
   <div class="container">
     <div class="sec-hdr reveal">
@@ -341,7 +377,6 @@
       <div class="sec-line"></div>
     </div>
     <div class="exp-list">
-
       <div class="exp-card reveal">
         <div class="exp-inner">
           <div class="exp-top">
@@ -356,7 +391,6 @@
           </ul>
         </div>
       </div>
-
       <div class="exp-card reveal">
         <div class="exp-inner">
           <div class="exp-top">
@@ -371,12 +405,10 @@
           </ul>
         </div>
       </div>
-
     </div>
   </div>
 </section>
 
-<!-- ── PROJECTS ── -->
 <section id="projects">
   <div class="container">
     <div class="sec-hdr reveal">
@@ -384,7 +416,6 @@
       <div class="sec-line"></div>
     </div>
     <div class="projects-grid">
-
       <div class="pc reveal">
         <div class="pc-inner">
           <div>
@@ -409,7 +440,6 @@
           </div>
         </div>
       </div>
-
       <div class="pc reveal">
         <div class="pc-inner">
           <div>
@@ -435,7 +465,6 @@
           </div>
         </div>
       </div>
-
       <div class="pc reveal">
         <div class="pc-inner">
           <div>
@@ -460,12 +489,10 @@
           </div>
         </div>
       </div>
-
     </div>
   </div>
 </section>
 
-<!-- ── SKILLS ── -->
 <section id="skills">
   <div class="container">
     <div class="sec-hdr reveal">
@@ -492,7 +519,6 @@
   </div>
 </section>
 
-<!-- ── CONTACT ── -->
 <section id="contact">
   <div class="container">
     <div class="contact-block reveal">
@@ -500,7 +526,7 @@
       <div class="ct-heading">Have a project<br>in <em>mind?</em></div>
       <p class="ct-sub">Open to internships, collaborations, and full-time opportunities.</p>
       <div class="ct-links">
-        <a href="mailto:your@email.com" class="btn btn-primary">Email me</a>
+        <a href="mailto:kwek.yi.xxuan@gmail.com" class="btn btn-primary">Email me</a>
         <a href="https://github.com/kwekyix" target="_blank" class="btn btn-ghost">GitHub</a>
         <a href="https://www.linkedin.com/in/yi-xuan-kwek-119620304" target="_blank" class="btn btn-ghost">LinkedIn</a>
       </div>
@@ -516,20 +542,75 @@
 </footer>
 
 <script>
-  const cur = document.getElementById('cur'), ring = document.getElementById('ring');
-  let mx=0,my=0,rx=0,ry=0;
-  document.addEventListener('mousemove', e => { mx=e.clientX; my=e.clientY; cur.style.left=mx+'px'; cur.style.top=my+'px'; });
-  (function loop(){ rx+=(mx-rx)*.14; ry+=(my-ry)*.14; ring.style.left=rx+'px'; ring.style.top=ry+'px'; requestAnimationFrame(loop); })();
-  document.querySelectorAll('a,button').forEach(el=>{
-    el.addEventListener('mouseenter',()=>{ cur.style.transform='translate(-50%,-50%) scale(2.5)'; ring.style.opacity='.7'; ring.style.transform='translate(-50%,-50%) scale(1.4)'; });
-    el.addEventListener('mouseleave',()=>{ cur.style.transform='translate(-50%,-50%) scale(1)'; ring.style.opacity='.45'; ring.style.transform='translate(-50%,-50%) scale(1)'; });
+  // Custom cursor
+  const cur = document.getElementById('cur');
+  const ring = document.getElementById('ring');
+  let mx = 0, my = 0, rx = 0, ry = 0;
+  
+  document.addEventListener('mousemove', e => {
+    mx = e.clientX;
+    my = e.clientY;
+    cur.style.left = mx + 'px';
+    cur.style.top = my + 'px';
   });
+  
+  (function loop() {
+    rx += (mx - rx) * 0.14;
+    ry += (my - ry) * 0.14;
+    ring.style.left = rx + 'px';
+    ring.style.top = ry + 'px';
+    requestAnimationFrame(loop);
+  })();
+  
+  document.querySelectorAll('a, button').forEach(el => {
+    el.addEventListener('mouseenter', () => {
+      cur.style.transform = 'translate(-50%, -50%) scale(2.5)';
+      ring.style.opacity = '0.7';
+      ring.style.transform = 'translate(-50%, -50%) scale(1.4)';
+    });
+    el.addEventListener('mouseleave', () => {
+      cur.style.transform = 'translate(-50%, -50%) scale(1)';
+      ring.style.opacity = '0.45';
+      ring.style.transform = 'translate(-50%, -50%) scale(1)';
+    });
+  });
+
+  // Intersection Observer for reveals
   const obs = new IntersectionObserver(entries => {
     entries.forEach(e => {
-      if(e.isIntersecting){ e.target.classList.add('visible'); obs.unobserve(e.target); }
+      if (e.isIntersecting) {
+        e.target.classList.add('visible');
+        obs.unobserve(e.target);
+      }
     });
-  }, {threshold:.08});
+  }, { threshold: 0.08 });
+  
   document.querySelectorAll('.reveal').forEach(el => obs.observe(el));
+
+  // Dark mode toggle
+  const themeToggle = document.getElementById('themeToggle');
+  const themeText = themeToggle.querySelector('.theme-text');
+  const themeEmoji = themeToggle.querySelector('span:first-child');
+  
+  // Check for saved preference
+  const savedTheme = localStorage.getItem('theme');
+  if (savedTheme === 'dark') {
+    document.documentElement.setAttribute('data-theme', 'dark');
+    themeText.textContent = 'Dark';
+  }
+  
+  themeToggle.addEventListener('click', () => {
+    const currentTheme = document.documentElement.getAttribute('data-theme');
+    if (currentTheme === 'dark') {
+      document.documentElement.removeAttribute('data-theme');
+      themeText.textContent = 'Light';
+      localStorage.setItem('theme', 'light');
+    } else {
+      document.documentElement.setAttribute('data-theme', 'dark');
+      themeText.textContent = 'Dark';
+      localStorage.setItem('theme', 'dark');
+    }
+  });
 </script>
 </body>
 </html>
