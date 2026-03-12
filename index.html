@@ -1,0 +1,551 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Kwek Yi Xuan · portfolio</title>
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Mono:ital,wght@0,300;0,400;1,300&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg:      rgb(243, 247, 252);
+    --surface: #fafbfd;
+    --border:  #cdd3df;
+    --ink:     #0f1520;
+    --muted:   #5d6973;
+    --accent:  #03045e;
+    --shadow:  rgba(15,21,32,0.07);
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; }
+
+  body {
+    background: var(--bg);
+    color: var(--ink);
+    font-family: 'DM Mono', monospace;
+    /* CHANGED: Increased base font size from 13.5px to 16px for better readability */
+    font-size: 16px;
+    line-height: 1.6;
+    overflow-x: hidden;
+  }
+
+  body::before {
+    content: '';
+    position: fixed; inset: 0;
+    background-image: radial-gradient(circle, rgba(15,21,32,0.07) 1px, transparent 1px);
+    background-size: 28px 28px;
+    pointer-events: none;
+    z-index: 0;
+  }
+
+  #cur  { width:9px; height:9px; background:var(--accent); border-radius:50%; position:fixed; pointer-events:none; z-index:9999; transform:translate(-50%,-50%); transition:transform .12s; mix-blend-mode:multiply; }
+  #ring { width:34px; height:34px; border:1.5px solid var(--accent); border-radius:50%; position:fixed; pointer-events:none; z-index:9998; transform:translate(-50%,-50%); opacity:.45; transition:opacity .2s, transform .12s; mix-blend-mode:multiply; }
+
+  .container { max-width:1100px; margin:0 auto; padding:0 36px; position:relative; z-index:1; }
+
+  nav {
+    position:fixed; top:0; left:0; right:0; z-index:100;
+    padding:18px 0;
+    background:rgba(249, 245, 244, 0.93);
+    backdrop-filter:blur(10px);
+    border-bottom:1px solid var(--border);
+  }
+  nav .inner { max-width:1100px; margin:0 auto; padding:0 36px; display:flex; justify-content:space-between; align-items:center; }
+  .nav-logo { font-family:'Syne',sans-serif; font-weight:800; font-size:20px; color:var(--ink); text-decoration:none; }
+  .nav-logo span { color:var(--accent); }
+  nav ul { list-style:none; display:flex; gap:8px; }
+  nav a.nl {
+    color:var(--muted); text-decoration:none; 
+    font-size:14px; 
+    text-transform:uppercase; padding:8px 16px; border-radius:2px; transition:all .18s;
+  }
+  nav a.nl:hover { background:var(--accent); color:#fff; }
+
+  .hero {
+    min-height:100vh; display:flex; align-items:center;
+    padding:130px 0 90px; position:relative;
+  }
+
+  .hero-tag {
+    display:inline-flex; align-items:center; gap:8px;
+    background:rgba(29,78,216,.07); border:1px solid rgba(29,78,216,.2);
+    color:var(--accent); padding:8px 18px; border-radius:2px;
+    font-size:14px; 
+    text-transform:uppercase;
+    margin-bottom:30px;
+    animation:fadeUp .5s ease both;
+  }
+  .hero-tag::before { content:''; width:8px; height:8px; background:var(--accent); border-radius:50%; animation:pulse 2s infinite; }
+  @keyframes pulse { 0%,100%{opacity:1;transform:scale(1)} 50%{opacity:.4;transform:scale(.7)} }
+
+  .hero h1 {
+    font-family:'Syne',sans-serif; font-weight:800;
+    font-size:clamp(60px,8vw,110px); line-height:.95;
+    margin-bottom:26px;
+    animation:fadeUp .6s .1s ease both;
+  }
+  .hero h1 .outline {
+    color:transparent; -webkit-text-stroke:2px rgba(20,15,5,.22);
+  }
+  .hero h1 .accent-word { color:var(--accent); display:block; -webkit-text-stroke:0; }
+
+  .hero-desc {
+    max-width:600px; color:var(--muted); 
+    font-size:14px; 
+    line-height:1.7;
+    margin-bottom:44px; animation:fadeUp .6s .2s ease both;
+  }
+
+  .hero-cta { display:flex; gap:16px; animation:fadeUp .6s .3s ease both; }
+
+  .btn {
+    display:inline-flex; align-items:center; gap:10px;
+    padding:16px 32px; font-family:'DM Mono',monospace;
+    font-size:14px; 
+    text-transform:uppercase;
+    text-decoration:none; border-radius:2px; transition:all .2s;
+  }
+  .btn-primary { background:var(--accent); color:#fff; box-shadow:0 4px 20px rgba(29,78,216,.2); }
+  .btn-primary:hover { background:var(--muted); transform:translateY(-2px); box-shadow:0 8px 28px rgba(29,78,216,.28); }
+  .btn-ghost { border:1.5px solid var(--border); color:var(--muted); background:var(--surface); }
+  .btn-ghost:hover { border-color:var(--accent); color:var(--accent); transform:translateY(-2px); }
+
+  .hero-stats {
+    position:absolute; right:0; top:50%; transform:translateY(-50%);
+    display:flex; flex-direction:column; gap:32px;
+    animation:fadeUp .7s .4s ease both;
+  }
+  .hs { text-align:right; }
+  .hs-num { font-family:'Syne',sans-serif; font-size:48px; font-weight:800; line-height:1; color:var(--ink); }
+  .hs-num span { color:var(--accent); }
+  .hs-label { font-size:14px; color:var(--muted); text-transform:uppercase; }
+
+  .hero-scroll {
+    position:absolute; bottom:36px; left:50%; transform:translateX(-50%);
+    display:flex; flex-direction:column; align-items:center; gap:10px;
+    color:var(--muted); 
+    font-size:13px; 
+    text-transform:uppercase;
+    animation:fadeUp 1s .6s ease both;
+  }
+  .scroll-line { width:1px; height:48px; background:linear-gradient(to bottom,var(--accent),transparent); animation:sp 2s infinite; }
+  @keyframes sp { 0%,100%{transform:scaleY(1);opacity:1} 50%{transform:scaleY(.55);opacity:.4} }
+
+  section { padding:96px 0; }
+
+  .sec-hdr { display:flex; align-items:baseline; gap:18px; margin-bottom:54px; }
+  .sec-num { font-size:14px; color:var(--accent); }
+  .sec-title { font-family:'Syne',sans-serif; font-weight:800; font-size:48px; line-height:1; }
+  .sec-line { flex:1; height:1px; background:var(--border); margin-left:18px; }
+
+  .projects-grid { display:flex; flex-direction:column; gap:3px; }
+
+  .pc {
+    background:var(--surface);
+    border:1.5px solid var(--border);
+    border-radius:3px; overflow:hidden;
+    transition:border-color .28s, transform .28s, box-shadow .28s;
+    position:relative;
+  }
+  .pc:hover { border-color:var(--accent); transform:translateX(7px); box-shadow:4px 4px 0 }
+  .pc::before {
+    content:''; position:absolute; left:0; top:0; bottom:0; width:3px;
+    background:var(--accent); transform:scaleY(0); transform-origin:bottom; transition:transform .28s;
+  }
+  .pc:hover::before { transform:scaleY(1); }
+
+  .pc-inner { padding:40px 48px; display:grid; grid-template-columns:1fr auto; gap:32px; align-items:start; }
+
+  .pc-meta { display:flex; align-items:center; gap:12px; flex-wrap:wrap; margin-bottom:16px; }
+  .pc-year { font-size:14px; color:var(--accent); }
+  .pc-event { font-size:14px; color:var(--muted); border:1px solid var(--border); padding:4px 12px; border-radius:2px; }
+
+  .pc-title { font-family:'Syne',sans-serif; font-size:36px; font-weight:800; line-height:1; margin-bottom:20px; }
+
+  .pc-desc { color:var(--muted); font-size:16px; line-height:1.8; max-width:560px; margin-bottom:24px; }
+
+  .pc-bullets { margin-bottom:24px; list-style:none; display:flex; flex-direction:column; gap:8px; }
+  .pc-bullets li { color:var(--ink); font-size:15px; line-height:1.7; padding-left:20px; position:relative; }
+  .pc-bullets li::before { content:'–'; position:absolute; left:0; color:var(--accent); }
+
+  .pc-tags { display:flex; flex-wrap:wrap; gap:8px; }
+  .tag {
+    font-size:13px; text-transform:uppercase;
+    padding:4px 14px; border:1px solid var(--border); border-radius:2px;
+    color:var(--muted); background:transparent; transition:all .18s;
+  }
+  .pc:hover .tag { border-color:var(--accent); color:var(--accent); }
+
+  .pc-actions { display:flex; flex-direction:column; gap:12px; align-items:flex-end; min-width:140px; }
+  .pc-bignum { font-family:'Syne',sans-serif; font-size:72px; font-weight:800; line-height:1; text-align:right; margin-bottom:8px; }
+
+  .demo-btn {
+    display:inline-flex; align-items:center; gap:10px;
+    padding:12px 22px; background:var(--bg); border:1.5px solid var(--border);
+    border-radius:2px; color:var(--muted); text-decoration:none;
+    font-size:14px; text-transform:uppercase;
+    transition:all .2s; white-space:nowrap;
+  }
+  .demo-btn:hover { background:var(--accent); color:#fff; border-color:var(--accent); }
+
+  .play-ic { width:18px; height:18px; border:1.5px solid currentColor; border-radius:50%; display:flex; align-items:center; justify-content:center; flex-shrink:0; }
+  .play-ic::after { content:''; width:0; height:0; border-top:5px solid transparent; border-bottom:5px solid transparent; border-left:7px solid currentColor; margin-left:2px; }
+
+  .exp-list { display:flex; flex-direction:column; gap:3px; }
+
+  .exp-card {
+    background:var(--surface); border:1.5px solid var(--border); border-radius:3px;
+    overflow:hidden; transition:border-color .25s, box-shadow .25s;
+  }
+  .exp-card:hover { border-color:var(--border); box-shadow:0 4px 20px var(--shadow); }
+
+  .exp-inner { padding:36px 42px; }
+  .exp-top { display:flex; justify-content:space-between; align-items:baseline; gap:20px; margin-bottom:8px; flex-wrap:wrap; }
+  .exp-org { font-family:'Syne',sans-serif; font-weight:800; font-size:20px; }
+  .exp-date { font-size:14px; color:var(--muted); white-space:nowrap; }
+  .exp-role { font-size:15px; color:var(--accent); text-transform:uppercase; margin-bottom:20px; }
+  
+  .bullet-list { list-style:none; display:flex; flex-direction:column; gap:8px; }
+  .bullet-list li { color:var(--ink); font-size:15px; line-height:1.7; padding-left:20px; position:relative; }
+  .bullet-list li::before { content:'–'; position:absolute; left:0; color:var(--muted); }
+
+  .skills-grid { display:grid; grid-template-columns:repeat(3,1fr); gap:3px; }
+  .sk {
+    background:var(--surface); border:1.5px solid var(--border); padding:36px 32px;
+    border-radius:3px; transition:border-color .25s;
+  }
+  .sk:hover { border-color:var(--accent); }
+  .sk-icon { font-size:28px; margin-bottom:18px; display:block; }
+  .sk-name { font-family:'Syne',sans-serif; font-size:18px; font-weight:700; margin-bottom:16px; }
+  .sk-list { color:var(--muted); font-size:15px; line-height:2.2; }
+
+  .edu-grid { display:grid; grid-template-columns:1fr 1fr; gap:3px; }
+  .edu-card {
+    background:var(--surface); border:1.5px solid var(--border); padding:36px 38px;
+    border-radius:3px; transition:border-color .25s, transform .25s;
+  }
+  .edu-card:hover { border-color:var(--accent); transform:translateY(-3px); }
+  .edu-school { font-family:'Syne',sans-serif; font-weight:800; font-size:18px; margin-bottom:6px; }
+  .edu-degree { color:var(--ink); font-size:15px; margin-bottom:6px; }
+  .edu-period { font-size:14px; color:var(--muted); margin-bottom:16px; }
+  .edu-courses { font-size:14px; color:var(--muted); line-height:1.8; }
+  .edu-courses strong { color:var(--ink); font-style:normal; font-weight:600; }
+
+  .cca-card {
+    background:var(--surface); border:1.5px solid var(--border); border-radius:3px;
+    padding:36px 42px; transition:border-color .25s;
+  }
+  .cca-card:hover { border-color:var(--accent); }
+  .cca-top { display:flex; justify-content:space-between; align-items:baseline; gap:20px; margin-bottom:8px; flex-wrap:wrap; }
+  .cca-org { font-family:'Syne',sans-serif; font-weight:800; font-size:20px; }
+  .cca-date { font-size:14px; color:var(--muted); }
+  .cca-role { font-size:15px; color:var(--accent); text-transform:uppercase; margin-bottom:20px; }
+
+  .contact-block {
+    background:var(--surface); border:1.5px solid var(--border); border-radius:3px;
+    padding:80px 64px; text-align:center; position:relative;
+  }
+  .ct-label { font-size:14px; color:var(--accent); text-transform:uppercase; margin-bottom:20px; }
+  .ct-heading { font-family:'Syne',sans-serif; font-size:clamp(42px,6vw,72px); font-weight:800; line-height:1; margin-bottom:16px; }
+  .ct-heading em { font-style:normal; color:var(--accent); }
+  .ct-sub { color:var(--muted); font-size:16px; margin-bottom:48px; }
+  .ct-links { display:flex; gap:16px; justify-content:center; flex-wrap:wrap; }
+
+  footer { padding:36px 0; border-top:1px solid var(--border); }
+  footer .inner { max-width:1100px; margin:0 auto; padding:0 36px; display:flex; justify-content:space-between; align-items:center; }
+  footer p { color:var(--muted); font-size:14px; }
+
+  @keyframes fadeUp { from{opacity:0;transform:translateY(22px)} to{opacity:1;transform:translateY(0)} }
+  .reveal { opacity:0; transform:translateY(22px); transition:opacity .55s ease,transform .55s ease; }
+  .reveal.visible { opacity:1; transform:none; }
+
+  @media(max-width:768px){
+    .hero h1 { font-size:52px; }
+    .hero-stats { display:none; }
+    .pc-inner, .skills-grid, .edu-grid { grid-template-columns:1fr; }
+    nav ul { display:none; }
+  }
+</style>
+</head>
+<body>
+<div id="cur"></div>
+<div id="ring"></div>
+
+<nav>
+  <div class="inner">
+    <a href="#" class="nav-logo">dev<span>.</span></a>
+    <ul>
+      <li><a href="#projects" class="nl">Projects</a></li>
+      <li><a href="#experience" class="nl">Experience</a></li>
+      <li><a href="#skills" class="nl">Skills</a></li>
+      <li><a href="#education" class="nl">Education</a></li>
+      <li><a href="#contact" class="nl">Contact</a></li>
+    </ul>
+  </div>
+</nav>
+
+<section class="hero">
+  <div class="container">
+    <div class="hero-tag">Available for internships &amp; opportunities</div>
+    <h1>
+      <span class="accent-word">Kwek Yi Xuan</span>
+      <span class="outline">Full Stack Engineer.</span>
+    </h1>
+    <p class="hero-desc">
+      Computer Engineering student at NTU Singapore. I build full-stack platforms,
+      agentic AI tools, and accessible web experiences.
+    </p>
+    <div class="hero-cta">
+      <a href="#projects" class="btn btn-primary">View Projects</a>
+      <a href="#contact" class="btn btn-ghost">Get in Touch</a>
+    </div>
+
+    <div class="hero-stats">
+      <div class="hs"><div class="hs-num">3<span>+</span></div><div class="hs-label">Projects</div></div>
+      <div class="hs"><div class="hs-num">2<span>×</span></div><div class="hs-label">Hackathons</div></div>
+      <div class="hs"><div class="hs-num">WCAG</div><div class="hs-label">Accessibility</div></div>
+    </div>
+  </div>
+  <div class="hero-scroll"><div class="scroll-line"></div>scroll</div>
+</section>
+
+<section id="projects">
+  <div class="container">
+    <div class="sec-hdr reveal">
+      <span class="sec-num">01</span>
+      <h2 class="sec-title">Projects</h2>
+      <div class="sec-line"></div>
+    </div>
+    <div class="projects-grid">
+      <div class="pc reveal">
+        <div class="pc-inner">
+          <div>
+            <div class="pc-meta">
+              <span class="pc-year">2026</span>
+              <span class="pc-event">Women in Tech Beyond Binary Hackathon</span>
+            </div>
+            <div class="pc-title">EmoWeather</div>
+            <p class="pc-desc">A mood-aware weather app with accessibility as a first-class constraint.</p>
+            <ul class="pc-bullets">
+              <li>Built a responsive Next.js application styled with Tailwind CSS.</li>
+              <li>Deployed a production-ready PostgreSQL database on Railway using Prisma ORM.</li>
+              <li>Integrated axe-core throughout development to validate WCAG compliance.</li>
+            </ul>
+            <div class="pc-tags">
+              <span class="tag">Next.js</span><span class="tag">Tailwind CSS</span><span class="tag">PostgreSQL</span><span class="tag">Prisma</span><span class="tag">Railway</span><span class="tag">WCAG</span>
+            </div>
+          </div>
+          <div class="pc-actions">
+            <div class="pc-bignum">01</div>
+            <a href="https://youtu.be/R3ttjxAkuLo" target="_blank" class="demo-btn"><span class="play-ic"></span>Demo</a>
+          </div>
+        </div>
+      </div>
+
+      <div class="pc reveal">
+        <div class="pc-inner">
+          <div>
+            <div class="pc-meta">
+              <span class="pc-year">Sep – Nov 2025</span>
+              <span class="pc-event">NTU Software Engineering</span>
+            </div>
+            <div class="pc-title">HallMate</div>
+            <p class="pc-desc">A responsive hall swap platform for NTU residents.</p>
+            <ul class="pc-bullets">
+              <li>Implemented responsive UI with Bootstrap &amp; CSS for seamless hall searches and swap flows.</li>
+              <li>Developed a multi-step room swap request form in React with full form state management.</li>
+              <li>Optimised data fetching via RESTful APIs, custom React hooks, and session caching.</li>
+              <li>Maintained version control and documentation on GitHub across a 4-member team.</li>
+            </ul>
+            <div class="pc-tags">
+              <span class="tag">React</span><span class="tag">Bootstrap</span><span class="tag">RESTful API</span><span class="tag">Custom Hooks</span><span class="tag">GitHub</span>
+            </div>
+          </div>
+          <div class="pc-actions">
+            <div class="pc-bignum">02</div>
+            <a href="https://youtu.be/PtXEydSWRCM" target="_blank" class="demo-btn"><span class="play-ic"></span>Demo</a>
+          </div>
+        </div>
+      </div>
+
+      <div class="pc reveal">
+        <div class="pc-inner">
+          <div>
+            <div class="pc-meta">
+              <span class="pc-year">Aug 2025</span>
+              <span class="pc-event">SimplifyNext Agentic AI Hackathon</span>
+            </div>
+            <div class="pc-title">ConnectSG</div>
+            <p class="pc-desc">An agentic AI civic platform powered by AWS Bedrock.</p>
+            <ul class="pc-bullets">
+              <li>Built a dual-portal website with Streamlit to streamline civic reporting and policy feedback loops.</li>
+              <li>Engineered an AI pipeline on AWS Bedrock to classify issues and deliver real-time resident assistance.</li>
+              <li>Implemented an admin dashboard with automated AI issue modularisation and data visualisation.</li>
+            </ul>
+            <div class="pc-tags">
+              <span class="tag">AWS Bedrock</span><span class="tag">Streamlit</span><span class="tag">Agentic AI</span><span class="tag">LLM</span>
+            </div>
+          </div>
+          <div class="pc-actions">
+            <div class="pc-bignum">03</div>
+            <a href="https://youtu.be/tdWePHOHObQ" target="_blank" class="demo-btn"><span class="play-ic"></span>Demo</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="experience">
+  <div class="container">
+    <div class="sec-hdr reveal">
+      <span class="sec-num">02</span>
+      <h2 class="sec-title">Experience</h2>
+      <div class="sec-line"></div>
+    </div>
+    <div class="exp-list">
+      <div class="exp-card reveal">
+        <div class="exp-inner">
+          <div class="exp-top">
+            <span class="exp-org">Raffles Kidz International</span>
+            <span class="exp-date">Feb 2022 – Nov 2022 · May 2025 – Jul 2025</span>
+          </div>
+          <div class="exp-role">Product Development Intern</div>
+          <ul class="bullet-list">
+            <li>Collaborated with 10+ developers and designers to test and launch features for EDOOVO, improving UI/UX for 500+ young learners and parents.</li>
+            <li>Authored NetSuite software guides to standardise training for 10+ kindergarten centre principals.</li>
+            <li>Managed external vendor communications to ensure software deliverables aligned with project milestones.</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="exp-card reveal">
+        <div class="exp-inner">
+          <div class="exp-top">
+            <span class="exp-org">Self-Employed</span>
+            <span class="exp-date">Apr 2024 – Present</span>
+          </div>
+          <div class="exp-role">Private Tutor</div>
+          <ul class="bullet-list">
+            <li>Led group tutoring for primary school students in Chinese, Mathematics, and Science.</li>
+            <li>Designed personalised lesson plans tailored to each student's learning needs.</li>
+            <li>Built strong rapport with students and maintained clear communication with parents on progress.</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="skills">
+  <div class="container">
+    <div class="sec-hdr reveal">
+      <span class="sec-num">03</span>
+      <h2 class="sec-title">Skills</h2>
+      <div class="sec-line"></div>
+    </div>
+    <div class="skills-grid">
+      <div class="sk reveal">
+        <span class="sk-icon">⌨</span>
+        <div class="sk-name">Programming</div>
+        <div class="sk-list">Python · C · C++ · Java<br>JavaScript · TypeScript<br>CSS · React · Next.js<br>MATLAB · Verilog</div>
+      </div>
+      <div class="sk reveal">
+        <span class="sk-icon">☁</span>
+        <div class="sk-name">Cloud & Tools</div>
+        <div class="sk-list">AWS Bedrock · GitHub · GitLab<br>Linux · MySQL · PostgreSQL<br>Prisma · Streamlit<br>Figma · Adobe XD · Canva</div>
+      </div>
+      <div class="sk reveal">
+        <span class="sk-icon">⚙</span>
+        <div class="sk-name">Embedded & Hardware</div>
+        <div class="sk-list">STM32 · MSP432 · Vivado<br>Digital Systems Design<br>Computer Networks<br>Verilog HDL</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="education">
+  <div class="container">
+    <div class="sec-hdr reveal">
+      <span class="sec-num">04</span>
+      <h2 class="sec-title">Education</h2>
+      <div class="sec-line"></div>
+    </div>
+    <div class="edu-grid">
+      <div class="edu-card reveal">
+        <div class="edu-school">Nanyang Technological University</div>
+        <div class="edu-degree">B.Eng Computer Engineering</div>
+        <div class="edu-period">Aug 2024 – May 2028 · Singapore</div>
+        <div class="edu-courses">
+          <strong>Relevant Coursework</strong><br>
+          Data Structures & Algorithms · OOP · Computer Networks · Digital Systems Design
+        </div>
+      </div>
+      <div class="edu-card reveal">
+        <div class="edu-school">Nanyang Junior College</div>
+        <div class="edu-degree">GCE 'A' Level</div>
+        <div class="edu-period">Singapore</div>
+        <div class="edu-courses">
+          <strong>Subjects</strong><br>
+          Physics · Chemistry · Mathematics · Economics
+        </div>
+      </div>
+    </div>
+
+    <div style="margin-top:3px;">
+      <div class="cca-card reveal">
+        <div class="cca-top">
+          <span class="cca-org">Welfare Services Club — NTU Volunteer Movement</span>
+          <span class="cca-date">Aug 2024 – May 2025</span>
+        </div>
+        <div class="cca-role">Volunteer</div>
+        <ul class="bullet-list">
+          <li>Led activities and engagement sessions at outreach programmes for underprivileged children.</li>
+          <li>Delivered food and assisted with home cleaning for 10+ underprivileged elderly.</li>
+          <li>Collaborated with 70+ fellow volunteers, demonstrating empathy and social responsibility.</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="contact">
+  <div class="container">
+    <div class="contact-block reveal">
+      <div class="ct-label">Let's work together</div>
+      <div class="ct-heading">Have a project<br>in <em>mind?</em></div>
+      <p class="ct-sub">Open to internships, collaborations, and full-time opportunities.</p>
+      <div class="ct-links">
+        <a href="mailto:kwek.yi.xxuan@gmail.com" class="btn btn-primary">Email me</a>
+        <a href="https://github.com/kwekyix" target="_blank" class="btn btn-ghost">GitHub</a>
+        <a href="https://www.linkedin.com/in/yi-xuan-kwek-119620304" target="_blank" class="btn btn-ghost">LinkedIn</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="inner">
+    <p>© 2026 — Built with intention.</p>
+    <p>🇸🇬</p>
+  </div>
+</footer>
+
+<script>
+  const cur = document.getElementById('cur'), ring = document.getElementById('ring');
+  let mx=0,my=0,rx=0,ry=0;
+  document.addEventListener('mousemove', e => { mx=e.clientX; my=e.clientY; cur.style.left=mx+'px'; cur.style.top=my+'px'; });
+  (function loop(){ rx+=(mx-rx)*.14; ry+=(my-ry)*.14; ring.style.left=rx+'px'; ring.style.top=ry+'px'; requestAnimationFrame(loop); })();
+  
+  document.querySelectorAll('a,button').forEach(el=>{
+    el.addEventListener('mouseenter',()=>{ cur.style.transform='translate(-50%,-50%) scale(2.5)'; ring.style.opacity='.7'; ring.style.transform='translate(-50%,-50%) scale(1.4)'; });
+    el.addEventListener('mouseleave',()=>{ cur.style.transform='translate(-50%,-50%) scale(1)'; ring.style.opacity='.45'; ring.style.transform='translate(-50%,-50%) scale(1)'; });
+  });
+
+  const obs = new IntersectionObserver(entries => {
+    entries.forEach(e => { if(e.isIntersecting){ e.target.classList.add('visible'); obs.unobserve(e.target); } });
+  }, {threshold:.08});
+  document.querySelectorAll('.reveal').forEach(el=>obs.observe(el));
+</script>
+</body>
+</html>
