@@ -295,21 +295,113 @@
     .contact-block { padding:48px 24px; }
   }
 
-  /* Simple mobile fix */
+  /* Mobile fix */
   @media (max-width: 768px) {
-    .container { padding: 0 20px; }
-    .hero h1 { font-size: 42px; }
+    .container { padding: 0 16px; }
+    
+    /* Fix section titles */
+    .sec-title { 
+      font-size: 32px; 
+      word-break: break-word;
+    }
+    
+    /* Fix hero */
+    .hero h1 { 
+      font-size: 38px; 
+    }
     .hero h1 .outline, 
-    .hero h1 .accent-word { white-space: normal; }
+    .hero h1 .accent-word { 
+      white-space: normal; 
+      font-size: 38px;
+    }
     .hero-cta { flex-direction: column; }
     .btn { width: 100%; justify-content: center; }
-    .pc-inner { grid-template-columns: 1fr; }
-    .pc-actions { align-items: flex-start; }
-    .pc-bignum { text-align: left; }
+    
+    /* FIX PROJECT CARDS */
+    .pc-inner { 
+      grid-template-columns: 1fr; 
+      padding: 24px 20px;
+      gap: 16px;
+    }    
+    .pc-meta { 
+      flex-direction: column; 
+      align-items: flex-start;
+      gap: 8px;
+    }    
+    .pc-event { 
+      white-space: normal;
+      word-break: break-word;
+      font-size: 13px;
+      line-height: 1.4;
+      width: 100%;
+    }    
+    .pc-title { 
+      font-size: 26px; 
+      line-height: 1.2;
+      word-break: break-word;
+    }    
+    .pc-desc { 
+      font-size: 15px; 
+      line-height: 1.6;
+      word-break: break-word;
+    }    
+    .pc-bullets li { 
+      font-size: 14px; 
+      line-height: 1.5;
+      word-break: break-word;
+    }    
+    .pc-actions { 
+      align-items: flex-start; 
+      min-width: auto;
+      width: 100%;
+    }    
+    .pc-bignum { 
+      text-align: left; 
+      font-size: 42px;
+    }    
+    .demo-btn { 
+      white-space: normal;
+      word-break: break-word;
+      padding: 10px 18px;
+      font-size: 13px;
+    }    
+    .pc-tags { 
+      gap: 6px; 
+    }    
+    .tag { 
+      font-size: 11px; 
+      padding: 3px 10px;
+      white-space: normal;
+      word-break: break-word;
+    }    
+    /* Fix education cards */
+    .edu-grid { grid-template-columns: 1fr; }
+    .edu-card { padding: 24px; }
+    .edu-school { font-size: 20px; }    
+    /* Fix experience */
+    .exp-inner { padding: 24px; }
     .exp-top { flex-direction: column; }
-    .exp-date { white-space: normal; }
+    .exp-date { 
+      white-space: normal; 
+      word-break: break-word;
+    }
+    /* Fix contact */
+    .contact-block { padding: 40px 20px; }
+    .ct-heading { font-size: 32px; }
     .ct-links { flex-direction: column; }
-    .ct-links .btn { width: 100%; }
+    .ct-links .btn { width: 100%; }    
+    /* Fix skills */
+    .skills-grid { 
+      grid-template-columns: 1fr; 
+      gap: 12px;
+    }
+    .sk { padding: 24px; }    
+    /* Hide stats and adjust nav */
+    .hero-stats { display: none; }
+    nav ul { display: none; }
+    .theme-toggle span:last-child { display: none; }
+    .theme-toggle { padding: 6px 10px; }
+  }
   }
 </style>
 </head>
