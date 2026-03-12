@@ -294,6 +294,23 @@
     .skills-grid { grid-template-columns:1fr; }
     .contact-block { padding:48px 24px; }
   }
+
+  /* Simple mobile fix */
+  @media (max-width: 956x) {
+    .container { padding: 0 20px; }
+    .hero h1 { font-size: 42px; }
+    .hero h1 .outline, 
+    .hero h1 .accent-word { white-space: normal; }
+    .hero-cta { flex-direction: column; }
+    .btn { width: 100%; justify-content: center; }
+    .pc-inner { grid-template-columns: 1fr; }
+    .pc-actions { align-items: flex-start; }
+    .pc-bignum { text-align: left; }
+    .exp-top { flex-direction: column; }
+    .exp-date { white-space: normal; }
+    .ct-links { flex-direction: column; }
+    .ct-links .btn { width: 100%; }
+  }
 </style>
 </head>
 <body>
