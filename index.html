@@ -174,14 +174,6 @@
   .hs-num span { color:var(--accent); }
   .hs-label { font-size:14px; color:var(--muted); letter-spacing:0; text-transform:uppercase; }
 
-  .hero-scroll {
-    position:absolute; bottom:36px; left:50%; transform:translateX(-50%);
-    display:flex; flex-direction:column; align-items:center; gap:10px;
-    color:var(--muted); font-size:13px; letter-spacing:0; text-transform:uppercase;
-    animation:fadeUp 1s .6s ease both;
-  }
-  .scroll-line { width:1px; height:48px; background:linear-gradient(to bottom, var(--accent), transparent); animation:sp 2s infinite; }
-  @keyframes sp { 0%,100%{transform:scaleY(1);opacity:1} 50%{transform:scaleY(.55);opacity:.4} }
 
   section { padding:96px 0; }
 
@@ -446,7 +438,6 @@
       <div class="hs"><div class="hs-num">2<span>×</span></div><div class="hs-label">Hackathons</div></div>
     </div>
   </div>
-  <div class="hero-scroll"><div class="scroll-line"></div>scroll</div>
 </section>
 
 <section id="education">
@@ -614,11 +605,11 @@
       </div>
       <div class="sk reveal">
         <div class="sk-name">Cloud &amp; Tools</div>
-        <div class="sk-list">AWS Bedrock · GitHub · GitLab<br>Linux · MySQL · PostgreSQL<br>Prisma · Streamlit<br>Figma · Adobe XD · Canva</div>
+        <div class="sk-list">GitHub · Gitlab · Linux<br>MySQL · AWS Bedrock · Canva<br>Adobe XD · Figma · Blender</div>
       </div>
       <div class="sk reveal">
         <div class="sk-name">Embedded &amp; Hardware</div>
-        <div class="sk-list">STM32 · MSP432 · Vivado<br>Digital Systems Design<br>Computer Networks<br>Verilog HDL</div>
+        <div class="sk-list">STM32 · MSP432 · Vivado</div>
       </div>
     </div>
   </div>
