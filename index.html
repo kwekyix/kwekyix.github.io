@@ -12,7 +12,7 @@
     --border:       #cdd3df;
     --ink:          #0f1520;
     --muted:        #5d6973;
-    --accent:       #280c7c;  /*03045e*/
+    --accent:       #171064;  /*280c7c*/
     --white:        #ffffff;
 
     --accent-tint:  rgba(3, 4, 94, 0.07);
@@ -29,7 +29,7 @@
     --border:       #65778f;
     --ink:          #f7f9fa;
     --muted:        #94a3b8;
-    --accent:       #818cf8;
+    --accent:       #81bdf8; /*#818cf8*/
     --white:        #ffffff;
 
     --accent-tint:  rgba(129, 140, 248, 0.15);
@@ -52,7 +52,6 @@
     cursor: none;
     transition: background-color 0.3s ease, color 0.2s ease;
   }
-
   body::before {
     content: '';
     position: fixed; inset: 0;
@@ -115,7 +114,6 @@
     min-height:100vh; display:flex; align-items:center;
     padding:130px 0 90px; position:relative;
   }
-
   .hero-tag {
     display:inline-flex; align-items:center; gap:8px;
     background: var(--accent-tint);
@@ -123,17 +121,13 @@
     color:var(--accent); padding:8px 18px; border-radius:2px;
     font-size:14px; letter-spacing:0; text-transform:uppercase;
     margin-bottom:30px;
-    animation:fadeUp .5s ease both;
   }
-  .hero-tag::before { content:''; width:8px; height:8px; background:var(--accent); border-radius:50%; animation:pulse 2s infinite; }
-  @keyframes pulse { 0%,100%{opacity:1;transform:scale(1)} 50%{opacity:.4;transform:scale(.7)} }
 
   .hero h1 {
     font-family:'Syne',sans-serif; font-weight:750;
     font-size:clamp(36px,5vw,72px);
     line-height:1.08; letter-spacing:0;
     margin-bottom:26px;
-    animation:fadeUp .6s .1s ease both;
   }
   .hero h1 .outline {
     color:transparent;
@@ -144,14 +138,13 @@
     color:var(--accent); display:block;
     -webkit-text-stroke:0; white-space:nowrap;
   }
-
   .hero-desc {
     max-width:570px; color:var(--accent);
     font-size:14px; line-height:1.7;
-    margin-bottom:44px; animation:fadeUp .6s .2s ease both;
+    margin-bottom:44px;
   }
 
-  .hero-cta { display:flex; gap:16px; animation:fadeUp .6s .3s ease both; }
+  .hero-cta { display:flex; gap:16px; }
 
   .btn {
     display:inline-flex; align-items:center; gap:10px;
@@ -167,7 +160,6 @@
   .hero-stats {
     position:absolute; right:0; top:50%; transform:translateY(-50%);
     display:flex; flex-direction:column; gap:32px;
-    animation:fadeUp .7s .4s ease both;
   }
   .hs { text-align:right; }
   .hs-num { font-family:'Syne',sans-serif; font-size:48px; font-weight:750; letter-spacing:0; line-height:1; color:var(--ink); }
@@ -267,10 +259,6 @@
   footer .inner { max-width:1100px; margin:0 auto; padding:0 36px; display:flex; justify-content:space-between; align-items:center; }
   footer p { color:var(--muted); font-size:14px; }
 
-  @keyframes fadeUp { from{opacity:0;transform:translateY(22px)} to{opacity:1;transform:translateY(0)} }
-  .reveal { opacity:0; transform:translateY(22px); transition:opacity .55s ease,transform .55s ease; }
-  .reveal.visible { opacity:1; transform:none; }
-
   /* Skills */
   .skills-wrapper {
     display: flex;
@@ -313,10 +301,6 @@
     border: 2px solid var(--accent);
     box-shadow: 0 10px 30px var(--shadow);
     transition: transform 0.3s ease, box-shadow 0.3s ease;
-  }  
-  .video-circle:hover {
-    transform: scale(1.02);
-    box-shadow: 0 15px 40px var(--shadow);
   }  
   .video-circle video {
     width: 100%;
@@ -485,7 +469,7 @@
 
 <nav>
   <div class="inner">
-    <a href="#" class="nav-logo">dev<span>.</span></a>
+    <a href="#" class="nav-logo">yix<span>.</span></a>
     <ul>
       <li><a href="#education" class="nl">Education</a></li>
       <li><a href="#experience" class="nl">Experience</a></li>
@@ -525,12 +509,12 @@
 
 <section id="education">
   <div class="container">
-    <div class="sec-hdr reveal">
+    <div class="sec-hdr">
       <h2 class="sec-title">Education</h2>
       <div class="sec-line"></div>
     </div>
     <div class="edu-grid">
-      <div class="edu-card reveal">
+      <div class="edu-card">
         <div class="edu-school">Nanyang Technological University, Singapore</div>
         <div class="edu-degree">B.Eng (Hons) Computer Engineering</div>
         <div class="edu-period">Aug 2024 – May 2028 </div>
@@ -539,7 +523,7 @@
           Data Structures &amp; Algorithms · OOP · Computer Networks · Digital Systems Design
         </div>
       </div>
-      <div class="edu-card reveal">
+      <div class="edu-card">
         <div class="edu-school">Nanyang Junior College, Singapore</div>
         <div class="edu-degree">GCE 'A' Level</div>
         <div class="edu-period">Feb 2022 – Nov 2023</div>
@@ -554,12 +538,12 @@
 
 <section id="experience">
   <div class="container">
-    <div class="sec-hdr reveal">
+    <div class="sec-hdr">
       <h2 class="sec-title">Experience</h2>
       <div class="sec-line"></div>
     </div>
     <div class="exp-list">
-      <div class="exp-card reveal">
+      <div class="exp-card ">
         <div class="exp-inner">
           <div class="exp-top">
             <span class="exp-org">Raffles Kidz International</span>
@@ -573,7 +557,7 @@
           </ul>
         </div>
       </div>
-      <div class="exp-card reveal">
+      <div class="exp-card">
         <div class="exp-inner">
           <div class="exp-top">
             <span class="exp-org">Self-Employed</span>
@@ -593,12 +577,12 @@
 
 <section id="projects">
   <div class="container">
-    <div class="sec-hdr reveal">
+    <div class="sec-hdr">
       <h2 class="sec-title">Projects</h2>
       <div class="sec-line"></div>
     </div>
     <div class="projects-grid">
-      <div class="pc reveal">
+      <div class="pc">
         <div class="pc-inner">
           <div>
             <div class="pc-title">EmoWeather</div>
@@ -622,7 +606,7 @@
           </div>
         </div>
       </div>
-      <div class="pc reveal">
+      <div class="pc">
         <div class="pc-inner">
           <div>
             <div class="pc-title">HallMate</div>
@@ -647,7 +631,7 @@
           </div>
         </div>
       </div>
-      <div class="pc reveal">
+      <div class="pc">
         <div class="pc-inner">
           <div>
             <div class="pc-title">ConnectSG</div>
@@ -677,27 +661,27 @@
 
 <section id="skills">
   <div class="container">
-    <div class="sec-hdr reveal">
+    <div class="sec-hdr">
       <h2 class="sec-title">Skills</h2>
       <div class="sec-line"></div>
     </div>
     <div class="skills-wrapper">
       <div class="skills-top-row">
-        <div class="sk reveal">
+        <div class="sk">
           <div class="sk-name">Programming</div>
           <div class="sk-list">Python · C · C++ · Java · JavaScript · TypeScript · CSS · React · Next.js · MATLAB · Verilog</div>
         </div>
-        <div class="sk reveal">
+        <div class="sk">
           <div class="sk-name">Cloud &amp; Tools</div>
           <div class="sk-list">GitHub · GitLab · Linux · MySQL · AWS Bedrock · Canva · Adobe XD · Figma · Blender</div>
         </div>
       </div>      
       <div class="skills-bottom-row">
-        <div class="sk reveal hardware-card">
+        <div class="sk hardware-card">
           <div class="sk-name">Embedded &amp; Hardware</div>
           <div class="sk-list">STM32 · MSP432 · Vivado</div>
           <!-- Video showcase with description -->
-          <div class="video-showcase reveal">
+          <div class="video-showcase ">
             <div class="video-card">
               <div class="video-circle">
                 <video autoplay loop muted playsinline>
@@ -732,7 +716,7 @@
 
 <section id="contact">
   <div class="container">
-    <div class="contact-block reveal">
+    <div class="contact-block">
       <div class="ct-label">Let's work together</div>
       <div class="ct-heading">Have a project<br>in <em>mind?</em></div>
       <p class="ct-sub">Open to internships, collaborations, and full-time opportunities.</p>
@@ -744,13 +728,6 @@
     </div>
   </div>
 </section>
-
-<footer>
-  <div class="inner">
-    <p>© Built with intention.</p>
-    <p>🇸🇬</p>
-  </div>
-</footer>
 
 <script>
   // Custom cursor
@@ -785,18 +762,6 @@
       ring.style.transform = 'translate(-50%, -50%) scale(1)';
     });
   });
-
-  // Intersection Observer for reveals
-  const obs = new IntersectionObserver(entries => {
-    entries.forEach(e => {
-      if (e.isIntersecting) {
-        e.target.classList.add('visible');
-        obs.unobserve(e.target);
-      }
-    });
-  }, { threshold: 0.08 });
-  
-  document.querySelectorAll('.reveal').forEach(el => obs.observe(el));
 
   // Dark mode toggle
   const themeToggle = document.getElementById('themeToggle');
