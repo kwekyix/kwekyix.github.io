@@ -69,7 +69,7 @@
     border-bottom:1px solid var(--border);
     transition: background-color 0.3s ease, border-color 0.2s ease;
   }
-  nav .inner { max-width:1100px; margin:0 auto; padding:0 36px; display:flex; justify-content:space-between; align-items:center; }
+  nav .inner { max-width:1100px; margin:0 auto; padding:0 36px; display:flex; justify-content:space-between; align-items:center; position: relative; }
   .nav-logo { font-family:'Syne',sans-serif; font-weight:750; font-size:20px; letter-spacing:0; color:var(--ink); text-decoration:none; }
   .nav-logo span { color:var(--accent); }
   nav ul { list-style:none; display:flex; gap:8px; }
@@ -104,6 +104,68 @@
     letter-spacing: 0.5px;
   }
 
+  .hamburger {
+    display: none;
+    background: transparent;
+    border: none;
+    color: var(--ink);
+    font-size: 24px;
+    cursor: pointer;
+    padding: 6px;
+    transition: color 0.2s ease;
+  }
+  .hamburger:hover {
+    color: var(--accent);
+  }
+
+  .nav-menu {
+    display: none;
+    position: fixed;
+    top: 81px;
+    right: 0;
+    left: 0;
+    background: var(--surface);
+    border-bottom: 1.5px solid var(--border);
+    flex-direction: column;
+    padding: 12px 0;
+    z-index: 101;
+  }
+  .nav-menu.active {
+    display: flex;
+  }
+  .nav-menu li {
+    list-style: none;
+  }
+  .nav-menu a.nl {
+    display: block;
+    padding: 12px 20px;
+    color: var(--muted);
+    text-decoration: none;
+    font-size: 14px;
+    text-transform: uppercase;
+    letter-spacing: 0;
+    transition: all 0.18s;
+    border: none;
+    border-radius: 0;
+  }
+  .nav-menu a.nl:hover {
+    background: var(--accent-tint);
+    color: var(--accent);
+  }
+  .nav-menu .theme-toggle-mobile {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 12px 20px;
+    border-top: 1px solid var(--border);
+  }
+  .nav-menu .theme-toggle-mobile .theme-toggle {
+    margin-left: 0;
+  }
+  .nav-menu .theme-toggle-mobile .theme-text {
+    display: inline;
+  }
+
   .hero {
     min-height:100vh; display:flex; align-items:center;
     padding:130px 0 130px; position:relative;
@@ -117,23 +179,23 @@
     margin-bottom:30px;
   }
   .hero h1 {
-    width:900px; 
+    width:91%; 
     font-family:'Syne',sans-serif; font-weight:750;
     font-size:clamp(36px,5vw,72px);
     line-height:1.08; letter-spacing:0;
     margin-bottom:26px;
   }
   .hero h1 .outline {
-    max-width:900px; color:transparent;
+    color:transparent;
     -webkit-text-stroke:2px var(--ink-stroke);
-    display:block; white-space:nowrap;
+    display:block; white-space:normal;
   }
   .hero h1 .accent-word {
     color:var(--accent); display:block;
-    -webkit-text-stroke:0; white-space:nowrap;
+    -webkit-text-stroke:0; white-space:normal;
   }
   .hero-desc {
-    max-width:900px; color:var(--accent);
+    max-width:91%; color:var(--accent);
     font-size:14px; line-height:1.7;
     margin-bottom:44px;
   }
@@ -320,13 +382,15 @@
   /* ===== Mobile responsive ===== */
   /* Tablet (900px and below) */
   @media(max-width:900px){
-    .hero h1 { font-size:clamp(28px,6vw,48px); }
+    .hamburger { display: block; }
+    nav ul { display: none; }
+    #themeToggle { display: none; }
+    
+    .hero h1 { font-size: clamp(32px, 6vw, 56px); }
     .hero-stats { display:none; }
     .pc-inner { grid-template-columns:1fr; }
     .edu-grid { grid-template-columns:1fr; }
-    nav ul { display:none; }
-    .theme-toggle span { display: none; }
-    .theme-toggle { padding: 6px 10px; }
+    .nav-menu li { padding: 0; }
     
     /* Video adjustments */
     .video-circle { width: 240px; height: 240px; }
@@ -336,121 +400,90 @@
 
   /* Small tablet & large phone (768px and below) */
   @media(max-width:768px){
-    .container { padding: 0 16px; }
+    .container { padding: 0 20px; }
     
-    /* Section headers */
-    .sec-title { font-size: 32px; word-break: break-word; }
-    
-    /* Hero section */
-    .hero h1 { font-size: 38px; }
-    .hero h1 .outline, 
-    .hero h1 .accent-word { 
-      white-space: normal; 
-      font-size: 38px;
-    }
-    .hero-cta { flex-direction: column; }
+    .hero { min-height: auto; padding: 100px 0 80px; }
+    .hero-cta { flex-direction: column; gap: 12px; }
     .btn { width: 100%; justify-content: center; }
-    .hero-desc { max-width: 100%; }
     
-    /* Project cards */
+    .sec-line { display: none; }
+    section { padding: 64px 0; }
+    
     .pc-inner { 
       grid-template-columns: 1fr; 
-      padding: 24px 20px;
-      gap: 16px;
+      padding: 30px 24px;
+      gap: 20px;
     }    
-    .pc-meta { 
-      flex-direction: column; 
-      align-items: flex-start;
-      gap: 8px;
-    }    
-    .pc-event { 
-      white-space: normal;
-      word-break: break-word;
-      font-size: 14px;
-      line-height: 1.4;
-      width: 100%;
-    }    
-    .pc-title { 
-      font-size: 26px; 
-      line-height: 1.2;
-      word-break: break-word;
-    }    
-    .pc-desc { 
-      font-size: 14px; 
-      line-height: 1.6;
-      word-break: break-word;
-    }    
-    .pc-bullets li { 
-      font-size: 14px; 
-      line-height: 1.5;
-      word-break: break-word;
-    }    
+    .pc-meta { flex-direction: column; align-items: flex-start; gap: 8px; }    
     .pc-actions { 
-      align-items: flex-start; 
-      min-width: auto;
       width: 100%;
+      flex-direction: row;
+      justify-content: space-between;
+      align-items: flex-start;
     }    
-    .pc-bignum { 
-      text-align: left; 
-      font-size: 42px;
-    }    
-    .demo-btn { 
-      white-space: normal;
-      word-break: break-word;
-      padding: 10px 18px;
-      font-size: 14px;
-    }    
-    .pc-tags { gap: 6px; }    
-    .tag { 
-      font-size: 11px; 
-      padding: 3px 10px;
-      white-space: normal;
-      word-break: break-word;
-    }    
+    .pc-bignum { text-align: left; opacity: 0.4; }    
+    .demo-btn { padding: 12px 18px; }    
     
-    /* Education */
     .edu-grid { grid-template-columns: 1fr; }
     .edu-card { padding: 24px; }
-    .edu-school { font-size: 20px; }    
     
-    /* Experience */
     .exp-inner { padding: 24px; }
-    .exp-top { flex-direction: column; }
-    .exp-date { 
-      white-space: normal; 
-      word-break: break-word;
-    }
+    .exp-top { flex-direction: column; gap: 8px; }
     
-    /* Contact */
-    .contact-block { padding: 40px 20px; }
-    .ct-heading { font-size: 32px; }
-    .ct-links { flex-direction: column; }
+    .contact-block { padding: 50px 30px; }
+    .ct-links { 
+      flex-direction: column;
+      gap: 12px;
+    }
     .ct-links .btn { width: 100%; }    
     
-    /* Skills */
     .skills-top-row { grid-template-columns: 1fr; }
-    .skills-bottom-row { margin-top: 3px; }
-    .sk { padding: 24px; }
-    .sk-list { width: 100%; }
+    .skills-bottom-row { margin-top: 0; }
     
-    /* Videos - Stack vertically */
     .video-showcase { 
       gap: 40px; 
       flex-direction: column;
       align-items: center;
+      margin-top: 24px;
     }
-    .video-card { max-width: 280px; }
-    .video-circle { width: 260px; height: 260px; }
-    .video-text { width: 260px; }
+    .video-card { 
+      max-width: 100%;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+    .video-circle { width: 240px; height: 240px; }
+    .video-text { width: 240px; }
+    .video-description { text-align: center; margin-top: 12px; }
   }
 
   /* Phone (600px and below) */
   @media(max-width:600px){
-    .contact-block { padding:48px 24px; }
-    .video-showcase { gap: 30px; }
-    .video-circle { width: 240px; height: 240px; }
-    .video-card { max-width: 240px; }
-    .video-text { width: 240px; }
+    .container { padding: 0 16px; }
+    .hero { padding: 80px 0 60px; }
+    .hero-tag { margin-bottom: 16px; }
+    .hero-cta { gap: 10px; }
+    .btn { padding: 12px 20px; }
+    
+    section { padding: 48px 0; }
+    
+    .pc-inner { 
+      padding: 24px 16px;
+      gap: 16px;
+    }
+    .pc-bignum { font-size: 36px; }
+    .demo-btn { padding: 10px 16px; }
+    
+    .edu-card { padding: 20px; }
+    .exp-inner { padding: 20px; }
+    
+    .contact-block { padding: 40px 20px; }
+    .ct-links .btn { padding: 10px 18px; }
+    
+    .video-circle { width: 200px; height: 200px; }
+    .video-text { width: 200px; }
+    
+    footer .inner { padding: 0 16px; }
   }
 </style>
 </head>
@@ -461,6 +494,7 @@
 <nav>
   <div class="inner">
     <a href="#" class="nav-logo">yix<span>.</span></a>
+    <button class="hamburger" id="hamburger">☰</button>
     <ul>
       <li><a href="#education" class="nl">Education</a></li>
       <li><a href="#experience" class="nl">Experience</a></li>
@@ -471,6 +505,18 @@
     <button class="theme-toggle" id="themeToggle">
       <span class="theme-text">Light</span>
     </button>
+    <div class="nav-menu" id="navMenu">
+      <li><a href="#education" class="nl">Education</a></li>
+      <li><a href="#experience" class="nl">Experience</a></li>
+      <li><a href="#projects" class="nl">Projects</a></li>
+      <li><a href="#skills" class="nl">Skills</a></li>
+      <li><a href="#contact" class="nl">Contact</a></li>
+      <div class="theme-toggle-mobile">
+        <button class="theme-toggle" id="themeToggleMobile">
+          <span class="theme-text">Light</span>
+        </button>
+      </div>
+    </div>
   </div>
 </nav>
 
@@ -721,31 +767,63 @@
 </section>
 
 <script>
-  // Dark mode toggle
-  const themeToggle = document.getElementById('themeToggle');
-  const themeText = themeToggle.querySelector('.theme-text');
-  const themeEmoji = themeToggle.querySelector('span:first-child');
-  
-  // Check for saved preference
-  const savedTheme = localStorage.getItem('theme');
-  if (savedTheme === 'dark') {
-    document.documentElement.setAttribute('data-theme', 'dark');
-    themeText.textContent = 'Dark';
-  }
-  
-  themeToggle.addEventListener('click', () => {
-    const currentTheme = document.documentElement.getAttribute('data-theme');
-    if (currentTheme === 'dark') {
-      document.documentElement.removeAttribute('data-theme');
-      themeText.textContent = 'Light';
-      localStorage.setItem('theme', 'light');
-    } else {
-      document.documentElement.setAttribute('data-theme', 'dark');
-      themeText.textContent = 'Dark';
-      localStorage.setItem('theme', 'dark');
+  // Hamburger menu
+  const hamburger = document.getElementById('hamburger');
+  const navMenu = document.getElementById('navMenu');
+  const navLinks = navMenu.querySelectorAll('a.nl');
+
+  hamburger.addEventListener('click', () => {
+    navMenu.classList.toggle('active');
+  });
+
+  // Close menu when a link is clicked
+  navLinks.forEach(link => {
+    link.addEventListener('click', () => {
+      navMenu.classList.remove('active');
+    });
+  });
+
+  // Close menu when clicking outside
+  document.addEventListener('click', (e) => {
+    if (!e.target.closest('nav')) {
+      navMenu.classList.remove('active');
     }
   });
+
+  // Dark mode toggle
+  const themeToggle = document.getElementById('themeToggle');
+  const themeToggleMobile = document.getElementById('themeToggleMobile');
+  
+  function setupThemeToggle(toggleButton) {
+    const themeText = toggleButton.querySelector('.theme-text');
+    
+    // Check for saved preference
+    const savedTheme = localStorage.getItem('theme');
+    if (savedTheme === 'dark') {
+      document.documentElement.setAttribute('data-theme', 'dark');
+      themeText.textContent = 'Dark';
+    }
+    
+    toggleButton.addEventListener('click', () => {
+      const currentTheme = document.documentElement.getAttribute('data-theme');
+      if (currentTheme === 'dark') {
+        document.documentElement.removeAttribute('data-theme');
+        themeText.textContent = 'Light';
+        localStorage.setItem('theme', 'light');
+        // Update mobile toggle text too
+        document.querySelectorAll('.theme-text').forEach(el => el.textContent = 'Light');
+      } else {
+        document.documentElement.setAttribute('data-theme', 'dark');
+        themeText.textContent = 'Dark';
+        localStorage.setItem('theme', 'dark');
+        // Update mobile toggle text too
+        document.querySelectorAll('.theme-text').forEach(el => el.textContent = 'Dark');
+      }
+    });
+  }
+  
+  setupThemeToggle(themeToggle);
+  setupThemeToggle(themeToggleMobile);
 </script>
 </body>
 </html>
-
