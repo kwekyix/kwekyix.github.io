@@ -48,31 +48,26 @@
   html { scroll-behavior: smooth; }
 
   body {
-    background: var(--bg);
-    color: var(--ink);
-    font-family: 'DM Mono', monospace;
-    font-size: 16px;
-    line-height: 1.6;
-    overflow-x: hidden;
-    transition: background-color 0.3s ease, color 0.2s ease;
+    background: var(--bg); color: var(--ink);
+    font-family: 'DM Mono', monospace; font-size: 16px;
+    line-height: 1.6; overflow-x: hidden;
   }
   body::before {
-    content: '';
-    position: fixed; inset: 0;
+    content: ''; position: fixed; inset: 0;
     background-size: 28px 28px;
     pointer-events: none;
     z-index: 0;
   }
 
-  .container { max-width:1100px; margin:0 auto; padding:0 36px; position:relative; z-index:1; width:100%; }
+  .container { 
+    max-width:1100px; margin:0 auto; padding:0 36px; 
+    position:relative; z-index:1; width:100%; 
+  }
 
   nav {
-    position:fixed; top:0; left:0; right:0; z-index:100;
-    padding:18px 0;
-    background: var(--bg-alpha);
-    backdrop-filter:blur(10px);
+    position:fixed; top:0; left:0; right:0; z-index:100; padding:18px 0;
+    background: var(--bg-alpha); backdrop-filter:blur(10px);
     border-bottom:1px solid var(--border);
-    transition: background-color 0.3s ease, border-color 0.2s ease;
   }
   nav .inner { max-width:1100px; margin:0 auto; padding:0 36px; display:flex; justify-content:space-between; align-items:center; position: relative; }
   .nav-logo { font-family:'Syne',sans-serif; font-weight:750; font-size:20px; letter-spacing:0; color:var(--ink); text-decoration:none; }
@@ -81,26 +76,17 @@
   nav a.nl {
     color:var(--muted); text-decoration:none;
     font-size:14px; letter-spacing:0;
-    text-transform:uppercase; padding:8px 16px; border-radius:2px; transition:all .18s;
+    text-transform:uppercase; padding:8px 16px; border-radius:2px; 
   }
   nav a.nl:hover { background:var(--accent); color:var(--white); }
 
   .theme-toggle {
-    background: transparent;
-    border: 1.5px solid var(--border);
-    color: var(--muted);
-    font-size: 18px;
-    padding: 6px 12px;
-    border-radius: 30px;
-    display: flex;
-    align-items: center;
-    gap: 6px;
-    transition: all 0.2s ease;
-    margin-left: 8px;
+    background: transparent; border: 1.5px solid var(--border); color: var(--muted);
+    font-size: 18px; padding: 6px 12px; border-radius: 30px; display: flex; align-items: center;
+    gap: 6px; transition: all 0.2s ease; margin-left: 8px;
   }
   .theme-toggle:hover {
-    border-color: var(--accent);
-    color: var(--accent);
+    border-color: var(--accent); color: var(--accent);
     transform: translateY(-2px);
   }
   .theme-toggle span {
@@ -110,43 +96,25 @@
   }
 
   .hamburger {
-    display: none;
-    background: transparent;
-    border: none;
-    color: var(--ink);
-    font-size: 24px;
-    cursor: pointer;
-    padding: 6px;
+    display: none; background: transparent; border: none;
+    color: var(--ink); font-size: 24px;
+    cursor: pointer; padding: 6px;
     transition: color 0.2s ease;
   }
-  .hamburger:hover {
-    color: var(--accent);
-  }
+  .hamburger:hover { color: var(--accent); }
 
   .nav-menu {
-    display: none;
-    position: fixed;
-    top: 81px;
-    right: 0;
-    left: 0;
-    background: var(--surface);
-    border-bottom: 1.5px solid var(--border);
-    flex-direction: column;
-    padding: 12px 0;
-    z-index: 101;
+    display: none; position: fixed; top: 81px; right: 0; left: 0;
+    background: var(--surface); border-bottom: 1.5px solid var(--border);
+    flex-direction: column; padding: 12px 0; z-index: 101;
   }
-  .nav-menu.active {
-    display: flex;
-  }
-  .nav-menu li {
-    list-style: none;
-  }
+  .nav-menu.active { display: flex; }
+  .nav-menu li { list-style: none; }
   .nav-menu a.nl {
     display: block; padding: 12px 20px;
     color: var(--muted); text-decoration: none;
     font-size: 14px; text-transform: uppercase;
-    letter-spacing: 0; transition: all 0.18s;
-    border: none; border-radius: 0;
+    letter-spacing: 0; border: none; border-radius: 0;
   }
   .nav-menu a.nl:hover {
     background: var(--accent-tint);
@@ -157,12 +125,8 @@
     align-items: center; justify-content: center;
     padding: 12px 20px; border-top: 1px solid var(--border);
   }
-  .nav-menu .theme-toggle-mobile .theme-toggle {
-    margin-left: 0;
-  }
-  .nav-menu .theme-toggle-mobile .theme-text {
-    display: inline;
-  }
+  .nav-menu .theme-toggle-mobile .theme-toggle { margin-left: 0; }
+  .nav-menu .theme-toggle-mobile .theme-text { display: inline; }
 
   .hero {
     min-height:100vh; display:flex; align-items:center;
@@ -185,8 +149,7 @@
     margin-bottom:26px;
   }
   .hero h1 .outline {
-    color:transparent;
-    -webkit-text-stroke:2px var(--ink-stroke);
+    color:transparent; -webkit-text-stroke:2px var(--ink-stroke);
     display:block; white-space:normal;
   }
   .hero h1 .accent-word {
@@ -204,26 +167,33 @@
     display:inline-flex; align-items:center; gap:10px;
     padding:16px 32px; font-family:'DM Mono',monospace;
     font-size:14px; letter-spacing:0; text-transform:uppercase;
-    text-decoration:none; border-radius:2px; transition:all .2s; 
+    text-decoration:none; border-radius:2px; 
   }
   .btn-primary { background:var(--accent); color:var(--white); box-shadow:0 4px 20px var(--shadow); }
   .btn-primary:hover { background:var(--accent); opacity:0.9; transform:translateY(-2px); box-shadow:0 8px 28px var(--shadow); }
   .btn-ghost { border:1.5px solid var(--border); color:var(--muted); background:var(--surface); }
   .btn-ghost:hover { border-color:var(--accent); color:var(--accent); transform:translateY(-2px); }
 
-    .hero-stats {
+  .hero-stats {
     position:absolute; right:calc((100% - 1100px) / 2 + 36px); top:240px; transform:translateY(0);
     display:flex; flex-direction:column; gap:32px;
   }
   .hs { text-align:right; }
-  .hs-num { font-family:'Syne',sans-serif; font-size:48px; font-weight:750; letter-spacing:0; line-height:1; color:var(--ink); }
+  .hs-num { 
+    font-family:'Syne',sans-serif; font-size:48px; font-weight:750;
+    /* font-family:'Minecraft PE',sans-serif; font-size:48px; font-weight:400; */
+    letter-spacing:0; line-height:1; color:var(--ink); 
+  }
   .hs-num span { color:var(--accent); }
   .hs-label { font-size:14px; color:var(--muted); letter-spacing:0; text-transform:uppercase; }
 
   section { padding:96px 0; }
 
   .sec-hdr { display:flex; align-items:baseline; gap:18px; margin-bottom:54px; }
-  .sec-title { font-family:'Syne',sans-serif; font-weight:750; font-size:44px; letter-spacing:0; line-height:1; }
+  .sec-title { 
+    /* font-family:'Syne',sans-serif; font-weight:750; font-size:44px; */
+    font-family:'Minecraft PE',sans-serif; font-weight:400; font-size:44px; 
+    letter-spacing:0; line-height:1; }
   .sec-line { flex:1; height:1px; background:var(--border); margin-left:18px; }
 
   .edu-grid { display:grid; grid-template-columns:1fr 1fr; gap:3px; }
@@ -249,11 +219,8 @@
   .projects-grid { display:flex; flex-direction:column; gap:3px; }
 
   .pc {
-    background:var(--surface);
-    border:1.5px solid var(--border);
-    border-radius:3px; overflow:hidden;
-    position:relative;
-    transition: background-color 0.3s ease, border-color 0.2s ease;
+    background:var(--surface); border:1.5px solid var(--border);
+    border-radius:3px; overflow:hidden; position:relative;
   }
   .pc::before {
     content:''; position:absolute; left:0; top:0; bottom:0; width:3px;
@@ -288,8 +255,7 @@
     display:inline-flex; align-items:center; gap:10px;
     padding:12px 22px; background:var(--accent); border:1.5px solid var(--border);
     border-radius:2px; color:var(--muted); text-decoration:none;
-    font-size:14px; letter-spacing:0; text-transform:uppercase; color:var(--white);
-    transition:all .2s; white-space:nowrap;
+    font-size:14px; letter-spacing:0; text-transform:uppercase; color:var(--white); white-space:nowrap;
   }
   .demo-btn:hover { background:var(--accent); color:var(--white); border-color:var(--accent); opacity:0.9; transform:translateY(-2px); }
 
@@ -299,11 +265,7 @@
   .sk { background:var(--surface); border:1.5px solid var(--border); padding:36px 32px; border-radius:3px; }
   .sk-icon { font-size:28px; margin-bottom:18px; display:block; }
   .sk-name { font-family:'Syne',sans-serif; font-size:18px; font-weight:750; letter-spacing:0; margin-bottom:16px; }
-  .sk-list {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 8px;
-  }
+  .sk-list { display: flex; flex-wrap: wrap; gap: 8px; }
 
   .contact-block { background:var(--surface); border:1.5px solid var(--border); border-radius:3px; padding:80px 64px; text-align:center; }
   .ct-label { font-size:14px; color:var(--accent); letter-spacing:0; text-transform:uppercase; margin-bottom:20px; }
@@ -590,9 +552,9 @@
           </div>
           <div class="exp-role">Product Development Intern</div>
           <ul class="bullet-list">
-            <li>Collaborated with 10+ developers and designers to test and launch features for EDOOVO, improving UI/UX for 500+ young learners and parents.</li>
-            <li>Authored NetSuite software guides to standardise training for 10+ kindergarten centre principals.</li>
-            <li>Managed external vendor communications to ensure software deliverables aligned with project milestones.</li>
+            <li>Collaborated with 10+ developers and designers to test and launch features across EDOOVO, an e-learning platform, to improve UI/UX for 500+ young learners and parents.</li>
+            <li>Authored NetSuite software guides to standardise training for 10+ key members of staff.</li>
+            <li>Managed external vendor communications to ensure software deliverables aligned with project milestones and industry quality standards.</li>
           </ul>
         </div>
       </div>
@@ -604,9 +566,9 @@
           </div>
           <div class="exp-role">Private Tutor</div>
           <ul class="bullet-list">
-            <li>Led group tutoring for primary school students in Chinese, Mathematics, and Science.</li>
-            <li>Designed personalised lesson plans tailored to each student's learning needs.</li>
-            <li>Built strong rapport with students and maintained clear communication with parents on progress.</li>
+            <li>Led group tutoring for primary school students, identifying areas of weakness in Chinese, Mathematics and Science, improving academic performance.</li>
+            <li>Designed creative and engaging lesson plans tailored to each student's unique learning needs.</li>
+            <li>Cultivated strong communication skills by building rapport with students and conveying student progress and future initiatives with parents.</li>
           </ul>
         </div>
       </div>
