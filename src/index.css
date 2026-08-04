@@ -1,0 +1,69 @@
+@import "tailwindcss";
+
+@font-face {
+  font-family: 'Minecraft PE';
+  src: url('/Minecrafter.Reg.ttf') format('truetype');
+}
+
+:root {
+  --bg: rgb(243, 247, 252);
+  --surface: #fafbfd;
+  --border: #cdd3df;
+  --ink: #0f1520;
+  --muted: #5d6973;
+  --accent: #1d1476;
+  --white: #ffffff;
+
+  --accent-tint: rgba(3, 4, 94, 0.07);
+  --ink-faint: rgba(15, 21, 32, 0.06);
+  --ink-stroke: rgba(15, 21, 32, 0.5);
+  --shadow: rgba(15, 21, 32, 0.07);
+  --bg-alpha: rgba(243, 247, 252, 0.93);
+}
+
+[data-theme='dark'] {
+  --bg: #0f172a;
+  --surface: #1e293b;
+  --border: #65778f;
+  --ink: #f7f9fa;
+  --muted: #cfdcee;
+  --accent: #81bdf8;
+  --white: #ffffff;
+
+  --accent-tint: rgba(129, 140, 248, 0.15);
+  --ink-faint: rgba(241, 245, 249, 0.6);
+  --ink-stroke: rgba(240, 246, 251, 0.7);
+  --shadow: rgba(0, 0, 0, 0.3);
+  --bg-alpha: rgba(15, 23, 42, 0.95);
+}
+
+@theme {
+  --color-bg: var(--bg);
+  --color-surface: var(--surface);
+  --color-border: var(--border);
+  --color-ink: var(--ink);
+  --color-muted: var(--muted);
+  --color-accent: var(--accent);
+  --color-white: var(--white);
+  --color-accent-tint: var(--accent-tint);
+  --color-ink-faint: var(--ink-faint);
+  --color-ink-stroke: var(--ink-stroke);
+  --color-shadow: var(--shadow);
+  --color-bg-alpha: var(--bg-alpha);
+
+  --font-mono: 'Inconsolata', Consolas, monospace;
+  --font-minecraft: 'Minecraft PE', sans-serif;
+
+  --breakpoint-phone: 600px;
+  --breakpoint-tabsm: 768px;
+  --breakpoint-tablet: 900px;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  @apply bg-bg text-ink font-mono text-[18px] leading-[1.6];
+  overflow-x: hidden;
+}
