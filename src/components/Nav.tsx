@@ -1,6 +1,5 @@
 import { useEffect, useRef, useState } from 'react'
 import { useTheme } from '../hooks/useTheme'
-import { ThemeToggle } from './ThemeToggle'
 
 const NAV_LINKS = [
   { href: '#education', label: 'Education' },
@@ -12,7 +11,27 @@ const NAV_LINKS = [
 ]
 
 const navLinkClass =
-  'rounded-sm px-4 py-2 text-[16px] text-muted uppercase hover:bg-accent hover:text-white'
+  'rounded-sm px-4 py-2 text-ui text-muted uppercase hover:bg-accent hover:text-white'
+
+function ThemeToggle({
+  theme,
+  onToggle,
+  className = '',
+}: {
+  theme: 'light' | 'dark'
+  onToggle: () => void
+  className?: string
+}) {
+  return (
+    <button
+      type="button"
+      onClick={onToggle}
+      className={`flex items-center gap-[6px] rounded-full border-[length:var(--border-width)] border-border bg-transparent px-3 py-[6px] text-icon text-muted transition-all duration-200 ease-out hover:-translate-y-0.5 hover:border-accent hover:text-accent max-tablet:py-3 ${className}`}
+    >
+      <span className="text-ui-sm tracking-[0.5px] uppercase">{theme === 'dark' ? 'Dark' : 'Light'}</span>
+    </button>
+  )
+}
 
 export function Nav() {
   const { theme, toggleTheme } = useTheme()
@@ -32,17 +51,17 @@ export function Nav() {
   return (
     <nav
       ref={navRef}
-      className="fixed top-0 right-0 left-0 z-100 border-b border-border bg-bg-alpha py-[18px] backdrop-blur-[10px]"
+      className="fixed top-0 right-0 left-0 z-100 border-b border-border bg-bg py-[18px]"
     >
       <div className="relative mx-auto flex max-w-[1100px] items-center justify-between px-9 max-tabsm:px-5 max-phone:px-4">
-        <a href="#" className="font-mono text-[22px] font-bold text-ink">
+        <a href="#" className="font-mono text-card-title font-bold text-ink">
           yix<span className="text-accent">.</span>
         </a>
 
         <button
           type="button"
           onClick={() => setMenuOpen((o) => !o)}
-          className="hidden text-[24px] text-ink hover:text-accent max-tablet:block"
+          className="hidden px-3 py-2 text-icon-lg text-ink hover:text-accent max-tablet:block"
         >
           ☰
         </button>
@@ -66,7 +85,7 @@ export function Nav() {
                 <a
                   href={link.href}
                   onClick={() => setMenuOpen(false)}
-                  className="block px-5 py-3 text-[16px] text-muted uppercase hover:bg-accent-tint hover:text-accent"
+                  className="block px-5 py-3 text-ui text-muted uppercase hover:bg-accent-tint hover:text-accent"
                 >
                   {link.label}
                 </a>

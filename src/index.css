@@ -19,6 +19,8 @@
   --ink-stroke: rgba(15, 21, 32, 0.5);
   --shadow: rgba(15, 21, 32, 0.07);
   --bg-alpha: rgba(243, 247, 252, 0.93);
+
+  --border-width: 1.5px;
 }
 
 [data-theme='dark'] {
@@ -57,6 +59,23 @@
   --breakpoint-phone: 600px;
   --breakpoint-tabsm: 768px;
   --breakpoint-tablet: 900px;
+
+  --spacing-card-gap: 5px;
+  --radius-card: 3px;
+
+  /* fluid: scales with viewport, for reading content */
+  --text-hero: clamp(36px, 8vw, 68px);
+  --text-h2: clamp(32px, 5vw, 48px);
+  --text-number: clamp(32px, 9vw, 68px);
+  --text-card-title: clamp(18px, 2.2vw, 22px);
+  --text-subtitle: clamp(15px, 1.8vw, 18px);
+  --text-body: clamp(14px, 1.3vw, 16px);
+
+  /* fixed: UI chrome stays a consistent control size */
+  --text-ui: 16px;
+  --text-ui-sm: 13px;
+  --text-icon: 18px;
+  --text-icon-lg: 24px;
 }
 
 html {
